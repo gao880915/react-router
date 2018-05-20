@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
-import { Router,Route,browserHistory,IndexRoute,Redirect } from 'react-router'
+import { Router,Route,browserHistory,IndexRoute } from 'react-router'
+import { Provider } from 'react-redux'
+import store from '../store/'
 import CommonWrapper from '../common/CommonWrapper'
-import Index from '../pages/index/'
+import {View as Index} from '../pages/index/'
 import List from '../pages/list/'
 
 export default class App extends Component {
 	render(){
 		return (
-			<div>
+			<Provider store = { store }>
 			  <Router history={browserHistory}>
 			    <Route path="/" component={CommonWrapper}>
-			      <IndexRoute onEnter={this.beforeEnter} component={Index}></IndexRoute>
-			      <Route path="list/(:name)" component={List}></Route>
-			      <Redirect from="abc(/:name)" to="list/(:name)"></Redirect>
+			      <IndexRoute component={Index}></IndexRoute>
+			      <Route path="list/(:id)" component={List}></Route>
 			    </Route>
 			  </Router>
-			</div>
+			</Provider>
 		)
 	} 
 	
